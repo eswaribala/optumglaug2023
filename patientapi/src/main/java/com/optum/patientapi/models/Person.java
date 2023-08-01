@@ -18,8 +18,8 @@ import java.time.LocalDate;
 public class Person {
 
     @Id
-    @Column(name="Adhar_Card")
-    private String adharCard;
+    @Column(name="Adhar_Card_No")
+    private String adharCardNo;
 
     @Embedded
     private FullName name;
