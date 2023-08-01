@@ -1,0 +1,47 @@
+mutation($patientInput:PatientInput){
+  addPatient(patient:$patientInput){
+    adharCardNo,
+    name{
+      firstName
+    }
+  }
+}
+
+{
+  "patientInput": {
+    "adharCardNo": "A1236",
+    "name": {
+      "firstName": "Saroja",
+      "middleName": "",
+      "lastName": ""
+    },
+    "gender": "FEMALE",
+    "email": "saroja@gmail.com",
+    "mobileNo": 9952032864,
+    "dob": "2002-12-07",
+    "opId": 3
+  }
+}
+============================================
+
+
+query{
+  findAllPatients{
+    adharCardNo,
+    gender,
+    email
+  }
+}
+=========================================
+
+query($adharCardNo: String){
+ 
+  findPatientByAdharCardNo(adharCardNo:$adharCardNo){
+    name{
+      firstName
+    }
+  }
+}
+{
+  "adharCardNo": "A1235"
+}
