@@ -1,8 +1,6 @@
 package com.optum.patientapi.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -14,25 +12,15 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Patient {
+@Builder
+@EqualsAndHashCode(callSuper = false)
+public class Patient extends  Person{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="OPID")
     private long opId;
 
-    @Embedded
-    private FullName name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name="Gender")
-    private Gender gender;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @Column(name="DOB")
-    private LocalDate dob;
-    @Column(name="Email",nullable = false,length = 200)
-    private String email;
-    @Column(name="Mobile_No")
-    private long mobileNo;
 
 
 }
