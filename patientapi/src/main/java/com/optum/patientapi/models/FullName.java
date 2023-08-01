@@ -1,6 +1,7 @@
 package com.optum.patientapi.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import javax.persistence.Embedded;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class FullName {
     @Column(name="First_Name",nullable = false,length = 100)
     private String firstName;
