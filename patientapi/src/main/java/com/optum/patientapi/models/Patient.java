@@ -16,8 +16,7 @@ import java.time.LocalDate;
 @SuperBuilder
 @EqualsAndHashCode(callSuper = false)
 public class Patient extends  Person{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name="OPID")
     private long opId;
 
