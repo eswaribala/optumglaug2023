@@ -9,5 +9,5 @@ type Address{
 
 extend type Query{
     findAllAddresses:[Address]
-    findAddressByAdharCardNo:[Address]
+    findAddressByAdharCardNo(adharCardNo:String):[Address]
 }
