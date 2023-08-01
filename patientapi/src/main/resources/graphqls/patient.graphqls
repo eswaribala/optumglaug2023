@@ -45,7 +45,7 @@ type Patient implements Person{
 type Query{
 
     findAllPatients:[Patient]
-    findPatientByAdharCardNo(adharCardNo: Long): Patient
+    findPatientByAdharCardNo(adharCardNo: String): Patient
     findPatientByOPID(opId:Long):[Patient]
     findPatientByFirstName(firstName:String):[Patient]
 
