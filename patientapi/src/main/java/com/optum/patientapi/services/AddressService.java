@@ -18,7 +18,7 @@ public class AddressService {
     private PatientRepo patientRepo;
 
 
-    public Address addPatient(String adharCardNo, Address address){
+    public Address addAddress(String adharCardNo, Address address){
 
         Patient patient=this.patientRepo.findById(adharCardNo).orElse(null);
         if(patient!=null){
