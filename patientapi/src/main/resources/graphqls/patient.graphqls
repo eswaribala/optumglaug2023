@@ -1,0 +1,53 @@
+schema {
+    query: Query
+}
+
+scalar Date
+scalar Long
+interface Person{
+    adharCardNo: String
+    name: FullName
+    gender:Gender,
+    email:String
+    mobileNo:Long
+    dob: Date
+}
+
+
+type FullName{
+    firstName:String
+    middleName:String
+    lastName:String
+}
+
+enum Gender{
+    MALE,FEMALE,TRANSGENDER
+}
+
+
+type Patient implements Person{
+
+    adharCardNo: String
+    name: FullName
+    gender:Gender,
+    email:String
+    mobileNo:Long
+    dob: Date
+    opId: Long
+
+
+}
+
+
+
+
+
+type Query{
+
+    findAllPatients:[Patient]
+    findPatientByAdharCardNo(adharCardNo: Long): Patient
+    findPatientByOPID(opId:Long):[Patient]
+    findPatientByFirstName(firstName:String):[Patient]
+
+
+}
