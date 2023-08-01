@@ -1,5 +1,6 @@
 schema {
     query: Query
+    mutation: Mutation
 }
 
 scalar Date
@@ -50,4 +51,28 @@ type Query{
     findPatientByFirstName(firstName:String):[Patient]
 
 
+}
+
+
+input PatientInput{
+    adharCardNo: String
+    name: FullNameInput
+    gender:Gender,
+    email:String
+    mobileNo:Long
+    dob: Date
+    opId: Long
+}
+
+input FullNameInput{
+    firstName:String
+    middleName:String
+    lastName:String
+}
+
+
+type Mutation{
+    addPatient(patient:PatientInput):Patient
+    updatePatient(adharCardNo: String, mobileNo: Long):Patient
+    deletePatient(adharCardNo: String):Boolean
 }

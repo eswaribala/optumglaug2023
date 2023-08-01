@@ -11,3 +11,19 @@ extend type Query{
     findAllAddresses:[Address]
     findAddressByAdharCardNo(adharCardNo:String):[Address]
 }
+
+
+input AddressInput{
+    addressId: Long
+    doorNo: String
+    streetName: String
+    city:String
+    pincode: Long
+    patient:PatientInput
+}
+
+extend type Mutation{
+    addAddress(adharCardNo:String,address:AddressInput):Address
+    updateAddress(address:AddressInput):Address
+    deleteAddress(addressId: Long):Boolean
+}
