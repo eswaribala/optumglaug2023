@@ -10,6 +10,7 @@ import java.util.List;
 public interface PatientRepo extends JpaRepository<Patient,String> {
 
 
-    @Query("Select p from Patient p where p.opId=:opId")
-    public List<Patient> findPatientByOPID(@Param("OPID") long opId);
+    @Query("Select p from Patient p where p.opId=:OPID")
+    public List<Patient> findPatientByOPID(@Param("OPID") long OPID);
+
 }
