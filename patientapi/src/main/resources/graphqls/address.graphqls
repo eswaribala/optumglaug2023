@@ -1,0 +1,13 @@
+type Address{
+    addressId: Long
+    doorNo: String
+    streetName: String
+    city:String
+    pincode: Long
+    patient:Patient
+}
+
+extend type Query{
+    findAllAddresses:[Address]
+    findAddressByAdharCardNo:[Address]
+}
