@@ -13,8 +13,6 @@ public class PatientFilter {
 
     private FilterField opId;
     private FilterField email;
-    private GenderFilterField gender;
+    //private GenderFilterField gender;
 
-    private List<PatientFilter> and;
-    private List<PatientFilter> or;
 }

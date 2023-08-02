@@ -80,16 +80,29 @@ type Mutation{
 }
 
 input PatientFilter{
-    opId:FilterField
-    gender:GenderFilterField
-    email: FilterField
+    opId:IntExpression
+    #gender:GenderFilterField
+    email: StringExpression
 
     and: [PatientFilter]
     or: [PatientFilter]
     #not: PatientFilter
 }
 
+# Define String expression
+input StringExpression {
+    equals: String
+    contains: String
+}
 
+# Define Int Expression
+input IntExpression {
+    eq: Int
+    gt: Int
+    gte: Int
+    lt: Int
+    lte: Int
+}
 
 input FilterField{
     operator: String
