@@ -1,5 +1,7 @@
 package com.optum.patientapi.queries;
 
+import com.intuit.graphql.filter.client.ExpressionFormat;
+import com.intuit.graphql.filter.client.FilterExpression;
 import com.optum.patientapi.dtos.FilterField;
 import com.optum.patientapi.dtos.GenderFilterField;
 import com.optum.patientapi.dtos.PatientFilter;
@@ -7,11 +9,13 @@ import com.optum.patientapi.models.Patient;
 import com.optum.patientapi.repositories.PatientRepo;
 import com.optum.patientapi.services.PatientService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
+import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
+import javax.xml.crypto.Data;
 import java.util.List;
 
 @Component
@@ -39,10 +43,10 @@ public class PatientQuery implements GraphQLQueryResolver {
         return this.patientService.getPatientByFirstName(firstName);
     }
 
-    public List<Patient> findPatientWithFilter(PatientFilter patientFilter){
+    public List<Patient> findPatientWithFilter(DataFetchingEnvironment env){
 
-        Specification<Patient> spec=null;
-        if(patientFilter.getOpId()!=null){
+        Specification<Patient> spec=getSpecification(env);
+       /* if(patientFilter.getOpId()!=null){
 
           spec=byOPId(patientFilter.getOpId());
         }
@@ -56,7 +60,7 @@ public class PatientQuery implements GraphQLQueryResolver {
 
             spec=byGender(patientFilter.getGender());
         }
-
+*/
         if(spec!=null)
            return this.patientRepo.findAll(spec);
         else
@@ -76,5 +80,15 @@ public class PatientQuery implements GraphQLQueryResolver {
 
     private Specification<Patient> byGender(GenderFilterField genderFilterField) {
         return (Specification<Patient>) (root, query, builder) -> genderFilterField.generateCriteria(builder, root.get("gender"));
+    }
+
+
+    private Specification<Patient> getSpecification(DataFetchingEnvironment env) {
+        FilterExpression.FilterExpressionBuilder builder = FilterExpression.newFilterExpressionBuilder();
+        FilterExpression filterExpression = builder.field(env.getField())
+                .args(env.getArguments())
+                .build();
+        Specification<Patient> specification = filterExpression.getExpression(ExpressionFormat.JPA);
+        return specification;
     }
 }
