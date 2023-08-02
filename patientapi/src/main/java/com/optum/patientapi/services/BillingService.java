@@ -10,6 +10,8 @@ import org.springframework.cloud.stream.annotation.StreamRetryTemplate;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class BillingService {
@@ -26,4 +28,9 @@ public class BillingService {
         this.billingRepo.save(bill);
 
     }
+
+    public List<OptumBill> getAllBills(){
+        return this.billingRepo.findAll();
+    }
+
 }

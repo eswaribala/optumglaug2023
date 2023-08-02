@@ -1,0 +1,11 @@
+type Subscription{
+
+    billSubscription:[OptumBill]
+}
+
+type OptumBill{
+    billNo: Long
+    billAmount: Long
+    billDate: Date
+    adharCardNo: String
+}
