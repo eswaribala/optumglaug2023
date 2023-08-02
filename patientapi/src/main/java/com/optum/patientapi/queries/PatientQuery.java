@@ -1,7 +1,5 @@
 package com.optum.patientapi.queries;
 
-import com.intuit.graphql.filter.client.ExpressionFormat;
-import com.intuit.graphql.filter.client.FilterExpression;
 import com.optum.patientapi.dtos.FilterField;
 import com.optum.patientapi.dtos.GenderFilterField;
 import com.optum.patientapi.dtos.PatientFilter;
@@ -9,16 +7,16 @@ import com.optum.patientapi.models.Patient;
 import com.optum.patientapi.repositories.PatientRepo;
 import com.optum.patientapi.services.PatientService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
-import graphql.schema.DataFetchingEnvironment;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
-import javax.xml.crypto.Data;
 import java.util.List;
 
 @Component
+@Slf4j
 public class PatientQuery implements GraphQLQueryResolver {
 
 
@@ -43,10 +41,19 @@ public class PatientQuery implements GraphQLQueryResolver {
         return this.patientService.getPatientByFirstName(firstName);
     }
 
-    public List<Patient> findPatientWithFilter(DataFetchingEnvironment env){
+    public List<Patient> findPatientWithFilter(PatientFilter patientFilter){
 
-        Specification<Patient> spec=getSpecification(env);
-       /* if(patientFilter.getOpId()!=null){
+        if(patientFilter.getOr()!=null) {
+            if (patientFilter.getOr().size() > 0)
+                log.info("Or Condition Present");
+        }
+        if(patientFilter.getAnd()!=null) {
+            if (patientFilter.getAnd().size() > 0)
+                log.info("And Condition Present");
+        }
+
+        Specification<Patient> spec=null;
+        if(patientFilter.getOpId()!=null){
 
           spec=byOPId(patientFilter.getOpId());
         }
@@ -60,7 +67,7 @@ public class PatientQuery implements GraphQLQueryResolver {
 
             spec=byGender(patientFilter.getGender());
         }
-*/
+
         if(spec!=null)
            return this.patientRepo.findAll(spec);
         else
@@ -83,12 +90,5 @@ public class PatientQuery implements GraphQLQueryResolver {
     }
 
 
-    private Specification<Patient> getSpecification(DataFetchingEnvironment env) {
-        FilterExpression.FilterExpressionBuilder builder = FilterExpression.newFilterExpressionBuilder();
-        FilterExpression filterExpression = builder.field(env.getField())
-                .args(env.getArguments())
-                .build();
-        Specification<Patient> specification = filterExpression.getExpression(ExpressionFormat.JPA);
-        return specification;
-    }
+
 }
