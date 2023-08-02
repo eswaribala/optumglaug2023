@@ -83,6 +83,10 @@ input PatientFilter{
     opId:FilterField
     gender:GenderFilterField
     email: FilterField
+
+    and: [PatientFilter]
+    or: [PatientFilter]
+    #not: PatientFilter
 }
 
 

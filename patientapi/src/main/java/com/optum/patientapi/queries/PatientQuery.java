@@ -60,7 +60,7 @@ public class PatientQuery implements GraphQLQueryResolver {
         if(spec!=null)
            return this.patientRepo.findAll(spec);
         else
-           return this.patientRepo.findAll();
+            return this.patientRepo.findAll();
 
     }
 
