@@ -45,3 +45,50 @@ query($adharCardNo: String){
 {
   "adharCardNo": "A1235"
 }
+===================================
+
+mutation($adharCardNo:String,$addressInput:AddressInput){
+  addAddress(adharCardNo:$adharCardNo,address:$addressInput){
+    addressId,
+    person{
+    adharCardNo
+      ...on Patient{
+        opId
+      }
+      ...on Employee{
+        bonus
+      }
+    }
+  }
+}
+
+{
+  "adharCardNo": "A1350",
+  "addressInput": {
+    "addressId": 0,
+    "doorNo": "5678",
+    "streetName": "Gandhi St",
+    "city": "Chennai",
+    "pincode": 600048
+  }
+}
+===================================================
+
+query{
+  findAllAddresses{
+    addressId,
+    person{
+      adharCardNo,
+      name{
+        firstName
+      }
+      
+      ... on Patient {
+        opId
+      }
+      ... on Employee {
+        bonus
+      }
+    }
+  }
+}
