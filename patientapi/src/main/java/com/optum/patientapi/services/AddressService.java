@@ -2,8 +2,10 @@ package com.optum.patientapi.services;
 
 import com.optum.patientapi.models.Address;
 import com.optum.patientapi.models.Patient;
+import com.optum.patientapi.models.Person;
 import com.optum.patientapi.repositories.AddressRepo;
 import com.optum.patientapi.repositories.PatientRepo;
+import com.optum.patientapi.repositories.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +17,15 @@ public class AddressService {
     @Autowired
     private AddressRepo addressRepo;
 
-    private PatientRepo patientRepo;
+    @Autowired
+    private PersonRepo personRepo;
 
 
     public Address addAddress(String adharCardNo, Address address){
 
-        Patient patient=this.patientRepo.findById(adharCardNo).orElse(null);
-        if(patient!=null){
-            address.setPatient(patient);
+        Person person=this.personRepo.findById(adharCardNo).orElse(null);
+        if(person!=null){
+            address.setPerson(person);
             return this.addressRepo.save(address);
 
         }

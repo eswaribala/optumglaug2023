@@ -22,5 +22,5 @@ public class AddressInput {
 
     private long pincode;
 
-    private PatientInput patient;
+    private PersonInput person;
 }

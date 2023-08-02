@@ -4,6 +4,7 @@ import com.optum.patientapi.dtos.AddressInput;
 import com.optum.patientapi.models.Address;
 import com.optum.patientapi.models.FullName;
 import com.optum.patientapi.models.Patient;
+import com.optum.patientapi.models.Person;
 import com.optum.patientapi.services.AddressService;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +38,18 @@ public class AddressMutation implements GraphQLMutationResolver {
                 .streetName(addressInput.getStreetName())
                 .city(addressInput.getCity())
                 .pincode(addressInput.getPincode())
-                .patient(Patient.builder()
-                        .adharCardNo(addressInput.getPatient().getAdharCardNo())
+                .person(Person.builder()
+                        .adharCardNo(addressInput.getPerson().getAdharCardNo())
                         .name(FullName.builder()
-                                .firstName(addressInput.getPatient().getName().getFirstName())
-                                .lastName(addressInput.getPatient().getName().getLastName())
-                                .middleName(addressInput.getPatient().getName().getMiddleName())
+                                .firstName(addressInput.getPerson().getName().getFirstName())
+                                .lastName(addressInput.getPerson().getName().getLastName())
+                                .middleName(addressInput.getPerson().getName().getMiddleName())
                                 .build())
-                        .dob(addressInput.getPatient().getDob())
-                        .mobileNo(addressInput.getPatient().getMobileNo())
-                        .email(addressInput.getPatient().getEmail())
-                        .gender(addressInput.getPatient().getGender())
-                        .opId(addressInput.getPatient().getOpId())
+                        .dob(addressInput.getPerson().getDob())
+                        .mobileNo(addressInput.getPerson().getMobileNo())
+                        .email(addressInput.getPerson().getEmail())
+                        .gender(addressInput.getPerson().getGender())
+                       // .opId(addressInput.getPatient().getOpId())
 
 
 

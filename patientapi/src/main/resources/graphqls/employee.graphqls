@@ -1,0 +1,41 @@
+type Employee implements Person{
+
+    adharCardNo: String
+    name: FullName
+    gender:Gender,
+    email:String
+    mobileNo:Long
+    dob: Date
+    bonus: Long
+
+
+}
+
+extend type Query{
+
+    findAllEmployees:[Employee]
+    findEmployeeByAdharCardNo(adharCardNo: String): Employee
+
+
+
+}
+
+
+input EmployeeInput{
+    adharCardNo: String
+    name: FullNameInput
+    gender:Gender,
+    email:String
+    mobileNo:Long
+    dob: Date
+    bonus: Long
+}
+
+
+
+
+extend type Mutation{
+    addEmployee(employee:EmployeeInput):Employee
+    updateEmployee(adharCardNo: String, mobileNo: Long):Employee
+    deleteEmployee(adharCardNo: String):Boolean
+}

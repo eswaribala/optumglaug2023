@@ -4,7 +4,7 @@ type Address{
     streetName: String
     city:String
     pincode: Long
-    patient:Patient
+    person:Person
 }
 
 extend type Query{
@@ -19,8 +19,19 @@ input AddressInput{
     streetName: String
     city:String
     pincode: Long
-    patient:PatientInput
+    person:PersonInput
 }
+
+input PersonInput{
+    adharCardNo: String
+    name: FullNameInput
+    gender:Gender,
+    email:String
+    mobileNo:Long
+    dob: Date
+
+}
+
 
 extend type Mutation{
     addAddress(adharCardNo:String,address:AddressInput):Address
