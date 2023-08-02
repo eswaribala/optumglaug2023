@@ -92,3 +92,11 @@ query{
     }
   }
 }
+==============================
+subscription{
+   billSubscription{
+    billNo
+  }
+}
+
+
