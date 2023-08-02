@@ -42,6 +42,8 @@ public class PatientQuery implements GraphQLQueryResolver {
     }
 
     public List<Patient> findPatientWithFilter(PatientFilter patientFilter){
+
+        //work around
         Specification<Patient> spec1=null;
         Specification<Patient> spec2=null;
         if(patientFilter.getOr()!=null) {
