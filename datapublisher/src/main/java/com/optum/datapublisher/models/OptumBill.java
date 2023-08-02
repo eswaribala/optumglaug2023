@@ -9,8 +9,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bill {
-
+public class OptumBill {
     private long billNo;
     private long billAmount;
     private LocalDate billDate;
