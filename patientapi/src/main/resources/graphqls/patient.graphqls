@@ -49,6 +49,8 @@ type Query{
     findPatientByAdharCardNo(adharCardNo: String): Patient
     findPatientByOPID(opId:Long):[Patient]
     findPatientByFirstName(firstName:String):[Patient]
+    findPatientWithFilter(patientFilter:PatientFilter):[Patient]
+
 
 
 }
@@ -77,7 +79,7 @@ type Mutation{
     deletePatient(adharCardNo: String):Boolean
 }
 
-type PatientFilter{
+input PatientFilter{
     opId:FilterField
     gender:GenderFilterField
     email: FilterField
@@ -85,12 +87,12 @@ type PatientFilter{
 
 
 
-type FilterField{
+input FilterField{
     operator: String
     value: String
 }
 
-type GenderFilterField{
+input GenderFilterField{
     operator:String
     value: Gender
 }
