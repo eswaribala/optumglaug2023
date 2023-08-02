@@ -42,36 +42,36 @@ public class PatientQuery implements GraphQLQueryResolver {
     }
 
     public List<Patient> findPatientWithFilter(PatientFilter patientFilter){
-
+        Specification<Patient> spec1=null;
+        Specification<Patient> spec2=null;
         if(patientFilter.getOr()!=null) {
-            if (patientFilter.getOr().size() > 0)
+            if (patientFilter.getOr().size() > 0) {
                 log.info("Or Condition Present");
+
+                if(patientFilter.getOpId()!=null){
+
+                    spec1=byOPId(patientFilter.getOpId());
+                }
+
+                if(patientFilter.getEmail()!=null){
+
+                    spec2=byEmail(patientFilter.getEmail());
+                }
+
+                if((spec1!=null)&&(spec2!=null))
+                    return this.patientRepo.findAll(spec1.or(spec2));
+                else
+                    return this.patientRepo.findAll();
+
+            }
+            else
+                return this.patientRepo.findAll();
         }
-        if(patientFilter.getAnd()!=null) {
-            if (patientFilter.getAnd().size() > 0)
-                log.info("And Condition Present");
-        }
-
-        Specification<Patient> spec=null;
-        if(patientFilter.getOpId()!=null){
-
-          spec=byOPId(patientFilter.getOpId());
-        }
-
-        if(patientFilter.getEmail()!=null){
-
-            spec=byEmail(patientFilter.getEmail());
-        }
-
-        if(patientFilter.getGender()!=null){
-
-            spec=byGender(patientFilter.getGender());
-        }
-
-        if(spec!=null)
-           return this.patientRepo.findAll(spec);
         else
             return this.patientRepo.findAll();
+
+
+
 
     }
 
