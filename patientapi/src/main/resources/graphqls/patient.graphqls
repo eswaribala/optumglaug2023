@@ -76,3 +76,21 @@ type Mutation{
     updatePatient(adharCardNo: String, mobileNo: Long):Patient
     deletePatient(adharCardNo: String):Boolean
 }
+
+type PatientFilter{
+    opId:FilterField
+    gender:GenderFilterField
+    email: FilterField
+}
+
+
+
+type FilterField{
+    operator: String
+    value: String
+}
+
+type GenderFilterField{
+    operator:String
+    value: Gender
+}
