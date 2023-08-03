@@ -98,5 +98,25 @@ subscription{
     billNo
   }
 }
+===========================
+query{
+  findPatientWithFilter(patientFilter:{
+    or:[{
+      opId:{
+        operator:"lt",
+        value:"10"
+      },
+      email:{
+        operator:"eq",
+        value:"Parameswaribala@gmail.com"
+      }
+    }]
+    }){
+    name{
+      firstName
+    }
+  }
+}
+
 
 
