@@ -27,7 +27,7 @@ public class Treatment {
     private long cost;
     @Column(name="Discount")
     private int discount;
-    @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "Appointment_No"), name = "Appointment_No")
     private Appointment appointment;
 
