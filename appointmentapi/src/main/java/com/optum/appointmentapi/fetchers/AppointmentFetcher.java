@@ -1,17 +1,18 @@
 package com.optum.appointmentapi.fetchers;
 
-import com.netflix.graphql.dgs.DgsComponent;
-import com.netflix.graphql.dgs.DgsData;
-import com.netflix.graphql.dgs.DgsDataFetchingEnvironment;
-import com.netflix.graphql.dgs.DgsQuery;
+import com.netflix.graphql.dgs.*;
+import com.optum.appointmentapi.dtos.AppointmentInput;
+import com.optum.appointmentapi.dtos.TreatmentInput;
 import com.optum.appointmentapi.models.Appointment;
 import com.optum.appointmentapi.models.Treatment;
 import com.optum.appointmentapi.repositories.AppointmentRepo;
 import com.optum.appointmentapi.repositories.TreatmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @DgsComponent
 public class AppointmentFetcher {
@@ -41,4 +42,60 @@ public class AppointmentFetcher {
         }
         return treatmentsList;
     }
+
+
+    @DgsMutation
+    public Appointment addAppointment(@InputArgument AppointmentInput appointmentInput){
+
+        Appointment appointment=Appointment.builder()
+                .appointmentNo(appointmentInput.getAppointmentNo())
+                .appointmentDate(appointmentInput.getAppointmentDate())
+                .doctorName(appointmentInput.getDoctorName())
+                .notes(appointmentInput.getNotes())
+                .opId(appointmentInput.getOpId())
+                .build();
+        Appointment appointmentResponse= this.appointmentRepo.save(appointment);
+
+        if(appointmentInput.getTreatments().size()>0){
+
+            for(TreatmentInput treatment : appointmentInput.getTreatments()){
+                Treatment treatmentObj=Treatment.builder()
+                        .treatmentId(treatment.getTreatmentId())
+                        .treatmentInfo(treatment.getTreatmentInfo())
+                        .treatmentDate(treatment.getTreatmentDate())
+                        .cost(treatment.getCost())
+                        .discount(treatment.getDiscount())
+                        .appointment(appointment)
+                        .build();
+                this.treatmentRepo.save(treatmentObj);
+
+            }
+
+
+        }
+
+        appointmentResponse.setTreatments(mapAppointmentTreatments(appointmentInput.getTreatments()));
+        return appointmentResponse;
+    }
+
+    private List<Treatment> mapAppointmentTreatments(List<TreatmentInput> treatmentInput) {
+        List<Treatment> treatmentsList = treatmentInput.stream().map(t -> {
+            Treatment treatment = Treatment.builder()
+                    .treatmentId(t.getTreatmentId())
+                    .treatmentInfo(t.getTreatmentInfo())
+                    .treatmentDate(t.getTreatmentDate())
+                    .cost(t.getCost())
+                    .discount(t.getDiscount())
+                    .build();
+            return treatment;
+        }).collect(Collectors.toList());
+        return treatmentsList;
+    }
+    public Appointment updateAppointment(@InputArgument long appointmentNo, @InputArgument LocalDateTime appointmentDate){
+
+    }
+    public boolean deleteAppointment(@InputArgument long appointmentNo){
+
+    }
+
 }
