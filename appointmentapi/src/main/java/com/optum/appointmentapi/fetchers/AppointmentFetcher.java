@@ -9,6 +9,7 @@ import com.optum.appointmentapi.repositories.AppointmentRepo;
 import com.optum.appointmentapi.repositories.TreatmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,7 @@ public class AppointmentFetcher {
     }
 
     @DgsMutation
-    public Appointment updateAppointment(@InputArgument long appointmentNo, @InputArgument LocalDateTime appointmentDate){
+    public Appointment updateAppointment(@InputArgument long appointmentNo, @InputArgument LocalDate appointmentDate){
 
         Appointment appointment=this.appointmentRepo.findById(appointmentNo).orElse(null);
         if(appointment!=null){

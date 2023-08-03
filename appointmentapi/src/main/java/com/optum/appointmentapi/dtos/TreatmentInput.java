@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class TreatmentInput {
     private long treatmentId;
     private String treatmentInfo;
-    private LocalDateTime treatmentDate;
+    private LocalDate treatmentDate;
     private long cost;
     private int discount;
     private AppointmentInput appointment;

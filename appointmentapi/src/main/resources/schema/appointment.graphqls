@@ -4,11 +4,11 @@ mutation: Mutation
 }
 
 scalar Long
-scalar DateTime
+scalar Date
 type Appointment{
     appointmentNo: Long
     opId:Long
-    appointmentDate: DateTime
+    appointmentDate: Date
     treatments:[Treatment]
     notes: String
     doctorName: String
@@ -25,7 +25,7 @@ type Query{
 input AppointmentInput{
     appointmentNo: Long
     opId:Long
-    appointmentDate: DateTime
+    appointmentDate: Date
     treatments:[TreatmentInput]
     notes: String
     doctorName: String
@@ -33,7 +33,7 @@ input AppointmentInput{
 
 type Mutation{
     addAppointment(appointmentInput:AppointmentInput):Appointment
-    updateAppointment(appointmentNo:Long, appointmentDate:DateTime):Appointment
+    updateAppointment(appointmentNo:Long, appointmentDate:Date):Appointment
     deleteAppointment(appointmentNo:Long):Boolean
 
 

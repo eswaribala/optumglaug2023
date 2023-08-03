@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -22,9 +23,9 @@ public class Treatment {
     private long treatmentId;
     @Column(name="Treatment_Info")
     private String treatmentInfo;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name="Treatment_Date")
-    private LocalDateTime treatmentDate;
+    private LocalDate treatmentDate;
     @Column(name="Cost")
     private long cost;
     @Column(name="Discount")

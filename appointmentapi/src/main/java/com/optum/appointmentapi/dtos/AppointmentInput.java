@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 @Data
@@ -17,7 +18,7 @@ import java.util.List;
 public class AppointmentInput {
 
     private long appointmentNo;
-    private LocalDateTime appointmentDate;
+    private LocalDate appointmentDate;
     private long opId;
     private String doctorName;
     private String notes;
