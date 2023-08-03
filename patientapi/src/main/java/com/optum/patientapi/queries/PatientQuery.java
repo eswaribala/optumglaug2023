@@ -44,34 +44,55 @@ public class PatientQuery implements GraphQLQueryResolver {
     public List<Patient> findPatientWithFilter(PatientFilter patientFilter){
 
         //work around
-        Specification<Patient> spec1=null;
-        Specification<Patient> spec2=null;
-        if(patientFilter.getOr()!=null) {
-            if (patientFilter.getOr().size() > 0) {
+
+        Specification<Patient> spec=null;
+
+        if((patientFilter.getOr()!=null)&&(patientFilter.getOr().size() > 0)) {
                 log.info("Or Condition Present");
+           for(int i=0;i<patientFilter.getOr().size();i++) {
 
-                if(patientFilter.getOpId()!=null){
+               log.info(patientFilter.getOr().get(i).getOpId().toString());
+               log.info(patientFilter.getOr().get(i).getEmail().toString());
+               if ((patientFilter.getOr().get(i).getOpId() != null) || (patientFilter.getOr().get(i).getEmail() != null)) {
+                   log.info(patientFilter.getOr().get(i).getOpId().toString());
+                   log.info(patientFilter.getOr().get(i).getEmail().toString());
+                   if(spec!=null)
+                      spec = spec.or(Specification.where(byOPId(patientFilter.getOr().get(i).getOpId()))
+                           .or(byEmail(patientFilter.getOr().get(i).getEmail())));
+                   else
+                       spec=Specification.where(byOPId(patientFilter.getOr().get(i).getOpId()))
+                               .or(byEmail(patientFilter.getOr().get(i).getEmail()));
 
-                    spec1=byOPId(patientFilter.getOpId());
+
+               }
+           }
+            return this.patientRepo.findAll(spec);
+        }
+
+
+        if((patientFilter.getAnd()!=null)&&(patientFilter.getAnd().size() > 0)) {
+            log.info("And Condition Present");
+            for(int i=0;i<patientFilter.getAnd().size();i++) {
+
+                log.info(patientFilter.getAnd().get(i).getOpId().toString());
+                log.info(patientFilter.getAnd().get(i).getEmail().toString());
+                if ((patientFilter.getAnd().get(i).getOpId() != null) || (patientFilter.getAnd().get(i).getEmail() != null)) {
+                    log.info(patientFilter.getAnd().get(i).getOpId().toString());
+                    log.info(patientFilter.getAnd().get(i).getEmail().toString());
+                    if(spec!=null)
+                        spec = spec.or(Specification.where(byOPId(patientFilter.getAnd().get(i).getOpId()))
+                                .and(byEmail(patientFilter.getAnd().get(i).getEmail())));
+                    else
+                        spec=Specification.where(byOPId(patientFilter.getAnd().get(i).getOpId()))
+                                .and(byEmail(patientFilter.getAnd().get(i).getEmail()));
+
+
                 }
-
-                if(patientFilter.getEmail()!=null){
-
-                    spec2=byEmail(patientFilter.getEmail());
-                }
-
-                if((spec1!=null)&&(spec2!=null))
-                    return this.patientRepo.findAll(spec1.or(spec2));
-                else
-                    return this.patientRepo.findAll();
-
             }
-            else
-                return this.patientRepo.findAll();
+            return this.patientRepo.findAll(spec);
         }
         else
             return this.patientRepo.findAll();
-
 
 
 
