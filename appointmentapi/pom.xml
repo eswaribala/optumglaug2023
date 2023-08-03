@@ -163,7 +163,7 @@
                 </configuration>
             </plugin>
 
-
+<!--
             <plugin>
                 <groupId>io.github.deweyjose</groupId>
                 <artifactId>graphqlcodegen-maven-plugin</artifactId>
@@ -183,7 +183,7 @@
                     <packageName>${project.groupId}.generated</packageName>
                 </configuration>
             </plugin>
-
+-->
         </plugins>
     </build>
 
