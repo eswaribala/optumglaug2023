@@ -9,10 +9,26 @@ type Treatment{
 
 }
 
+input TreatmentInput{
+    treatmentId: Long
+    treatmentInfo: String
+    appointment: AppointmentInput
+    treatmentDate: DateTime
+    cost:Long
+    discount: Int
+}
 
 extend type Query{
 
     findAllTreatments:[Treatment]
     findTreatmentById(appointmentNo: Long):[Treatment]
+
+}
+
+extend type Mutation{
+    addTreatment(treatmentInput:TreatmentInput):Treatment
+    updateTreatment(treatmentId:Long, discount:Int):Treatment
+    deleteTreatment(treatmentId:Long):Boolean
+
 
 }

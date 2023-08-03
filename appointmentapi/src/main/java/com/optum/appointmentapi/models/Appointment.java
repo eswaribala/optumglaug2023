@@ -30,5 +30,5 @@ public class Appointment {
     @Column(name="Notes")
     private String notes;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "appointment")
-    private List<Treatment> treatmentList;
+    private List<Treatment> treatments;
 }

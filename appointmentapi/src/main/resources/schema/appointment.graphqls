@@ -1,5 +1,6 @@
 schema{
 query: Query
+mutation: Mutation
 }
 
 scalar Long
@@ -8,7 +9,7 @@ type Appointment{
     appointmentNo: Long
     opId:Long
     appointmentDate: DateTime
-    treatment:[Treatment]
+    treatments:[Treatment]
     notes: String
     doctorName: String
 }
@@ -21,3 +22,19 @@ type Query{
 
 }
 
+input AppointmentInput{
+    appointmentNo: Long
+    opId:Long
+    appointmentDate: DateTime
+    treatments:[TreatmentInput]
+    notes: String
+    doctorName: String
+}
+
+type Mutation{
+    addAppointment(appointmentInput:AppointmentInput):Appointment
+    updateAppointment(appointmentNo:Long, appointmentDate:DateTime):Appointment
+    deleteAppointment(appointmentNo:Long):Boolean
+
+
+}
