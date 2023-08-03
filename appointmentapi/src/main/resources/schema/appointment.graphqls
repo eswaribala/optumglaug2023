@@ -1,6 +1,7 @@
 schema{
 query: Query
 mutation: Mutation
+subscription: Subscription
 }
 
 scalar Long
@@ -36,5 +37,10 @@ type Mutation{
     updateAppointment(appointmentNo:Long, appointmentDate:Date):Appointment
     deleteAppointment(appointmentNo:Long):Boolean
 
+
+}
+
+type Subscription{
+    showSubscriptions:Int
 
 }

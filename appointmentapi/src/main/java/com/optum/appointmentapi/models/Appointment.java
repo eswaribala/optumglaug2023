@@ -34,4 +34,8 @@ public class Appointment {
     private String notes;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "appointment")
     private List<Treatment> treatments;
+
+    public Appointment(long appointmentNo){
+        this.appointmentNo=appointmentNo;
+    }
 }

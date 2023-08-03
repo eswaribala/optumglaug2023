@@ -7,12 +7,16 @@ import com.optum.appointmentapi.models.Appointment;
 import com.optum.appointmentapi.models.Treatment;
 import com.optum.appointmentapi.repositories.AppointmentRepo;
 import com.optum.appointmentapi.repositories.TreatmentRepo;
+import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
+import reactor.core.publisher.Flux;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @DgsComponent
@@ -114,6 +118,20 @@ public class AppointmentFetcher {
                status=true;
 
            return status;
+    }
+
+
+
+    @DgsSubscription
+    public Publisher<Integer> showSubscriptions(){
+
+       Random random=new Random();
+
+        return Flux.interval(Duration.ofSeconds(5))
+                .map(num -> random.nextInt(10000));
+
+
+
     }
 
 }
