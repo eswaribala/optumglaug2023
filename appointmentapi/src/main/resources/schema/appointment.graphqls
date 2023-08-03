@@ -1,0 +1,24 @@
+schema{
+query: Query
+}
+
+scalar Long
+scalar Date
+type Appointment{
+    appointmentNo: Long
+    opId:Long
+    appointmentDate: Date
+    appointmentTime: String
+    treatment:[Treatment]
+    notes: String
+    doctorName: String
+}
+
+
+type Query{
+
+    findAllAppointments:[Appointment]
+    findAppointmentById(appointmentNo: Long):Appointment
+
+}
+

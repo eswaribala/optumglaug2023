@@ -1,0 +1,18 @@
+type Treatment{
+
+    treatmentId: Long
+    treatmentInfo: String
+    appointment: Appointment
+    treatmentDate: Date
+    cost:Long
+    discount: Int
+
+}
+
+
+extend type Query{
+
+    findAllTreatments:[Treatment]
+    findTreatmentById(appointmentNo: Long):[Treatment]
+
+}
