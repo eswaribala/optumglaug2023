@@ -3,6 +3,7 @@ package com.optum.appointmentapi.fetchers;
 import com.netflix.graphql.dgs.*;
 import com.optum.appointmentapi.dtos.AppointmentInput;
 import com.optum.appointmentapi.dtos.TreatmentInput;
+import com.optum.appointmentapi.exceptions.NoDataFoundError;
 import com.optum.appointmentapi.models.Appointment;
 import com.optum.appointmentapi.models.Treatment;
 import com.optum.appointmentapi.repositories.AppointmentRepo;
@@ -34,7 +35,14 @@ public class AppointmentFetcher {
 
     @DgsQuery
     public Appointment findAppointmentById(long appointmentNo){
-        return this.appointmentRepo.findById(appointmentNo).orElse(null);
+        Appointment appointment=this.appointmentRepo.findById(appointmentNo).orElse(null);
+
+        if(appointment==null){
+            throw new NoDataFoundError("Appointment Not Found","10001");
+        }
+        else
+
+        return appointment;
     }
 
     @DgsData(parentType = "Appointment", field = "treatments")
@@ -123,12 +131,12 @@ public class AppointmentFetcher {
 
 
     @DgsSubscription
-    public Publisher<Integer> showSubscriptions(){
+    public Publisher<Object> showSubscriptions(){
 
        Random random=new Random();
 
         return Flux.interval(Duration.ofSeconds(5))
-                .map(num -> random.nextInt(10000));
+                .map(obj -> appointmentRepo.findById(random.nextLong()));
 
 
 

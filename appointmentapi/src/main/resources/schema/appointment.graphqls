@@ -41,6 +41,6 @@ type Mutation{
 }
 
 type Subscription{
-    showSubscriptions:Int
+    showSubscriptions:Appointment
 
 }
