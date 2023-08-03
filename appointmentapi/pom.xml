@@ -178,6 +178,7 @@
                 <configuration>
                     <schemaPaths>
                         <param>src/main/resources/schema/appointment.graphqls</param>
+                        <param>src/main/resources/schema/treatment.graphqls</param>
                     </schemaPaths>
                     <packageName>${project.groupId}.generated</packageName>
                 </configuration>
