@@ -91,11 +91,28 @@ public class AppointmentFetcher {
         }).collect(Collectors.toList());
         return treatmentsList;
     }
+
+    @DgsMutation
     public Appointment updateAppointment(@InputArgument long appointmentNo, @InputArgument LocalDateTime appointmentDate){
 
+        Appointment appointment=this.appointmentRepo.findById(appointmentNo).orElse(null);
+        if(appointment!=null){
+            appointment.setAppointmentDate(appointmentDate);
+            return this.appointmentRepo.save(appointment);
+        }
+        else
+            return null;
     }
-    public boolean deleteAppointment(@InputArgument long appointmentNo){
 
+    @DgsMutation
+    public boolean deleteAppointment(@InputArgument long appointmentNo){
+          boolean status=false;
+           this.appointmentRepo.deleteById(appointmentNo);
+           Appointment appointment=this.appointmentRepo.findById(appointmentNo).orElse(null);
+           if(appointment==null)
+               status=true;
+
+           return status;
     }
 
 }
