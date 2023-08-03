@@ -3,11 +3,11 @@ query: Query
 }
 
 scalar Long
-scalar Date
+scalar DateTime
 type Appointment{
     appointmentNo: Long
     opId:Long
-    appointmentDate: Date
+    appointmentDate: DateTime
     appointmentTime: String
     treatment:[Treatment]
     notes: String

@@ -3,7 +3,7 @@ type Treatment{
     treatmentId: Long
     treatmentInfo: String
     appointment: Appointment
-    treatmentDate: Date
+    treatmentDate: DateTime
     cost:Long
     discount: Int
 
